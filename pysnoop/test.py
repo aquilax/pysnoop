@@ -1,4 +1,5 @@
 from snoop import TSnoop
+from cgi import parse_qs
 
 #Config
 user = ''   #username

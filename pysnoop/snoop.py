@@ -3,6 +3,14 @@ import sys
 from urllib import unquote
 from socket import *
 from cgi import parse_qs
+import re
+
+def udec(match):
+  return unichr(int('0x'+match.group(1), 16)).encode('utf8')
+  
+def unifix(self,text):
+  p = re.compile('%u([\dABCDEF]{4})')  
+  return p.sub(udec, text)
 
 class TSnoop:
 
@@ -29,7 +37,7 @@ class TSnoop:
   def connect(self):
     print "Connecting server",self.host,"port",self.port
     try:
-      self.s.connect((self.host, selfport))
+      self.s.connect((self.host, self.port))
       self.event('connected', None);
     except: 
       raise RuntimeError, "Connection refused"
